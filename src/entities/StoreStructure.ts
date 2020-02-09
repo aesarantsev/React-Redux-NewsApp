@@ -6,6 +6,7 @@ export interface StoreStructure {
 
 export interface articleListType {
   articles: Article[];
+  articlesQuery:string;
   loading: boolean;
   error: string | null;
 }

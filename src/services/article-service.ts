@@ -5,23 +5,19 @@ export default class ArticleService {
   currentData = "2020-01-08";
   querty = "bitcoin";
 
-  apiURL = `https://newsapi.org/v2/everything?q=${this.querty}&from=${this.currentData}&sortBy=publishedAt&apiKey=${this.apiKey}`;
-
-  async getResource() {
-    console.log(`fetch ${this.apiURL}`);
-
-    const res = await fetch(this.apiURL);
+  async getResource(query:string) {
+    let apiURL = `https://newsapi.org/v2/everything?q=${query}&from=${this.currentData}&sortBy=publishedAt&apiKey=${this.apiKey}`;
+    console.log(`fetch ${apiURL}`);
+    const res = await fetch(apiURL);
     if (!res.ok) {
-      throw new Error(
-        `Could not ferch ${this.apiURL}` + `, received ${res.status}`
-      );
+      throw new Error(`Could not ferch ${apiURL}` + `, received ${res.status}`);
     }
     const body = await res.json();
     return body;
   }
 
-  getArticles = async () => {
-    const res = await this.getResource();
+  getArticles = async (query: string) => {
+    const res = await this.getResource(query);
     return res.articles.map(this._transformArticles);
   };
 

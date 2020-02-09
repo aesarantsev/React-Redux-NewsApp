@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import ArticleListItem from "../article-list-item";
+
 import withBookstoreService from "../hoc";
 import { fetchArticles } from "../../actions";
 import { Article } from "../../entities/Article";
@@ -16,14 +18,7 @@ const ArticleList = ({ articles }: IArticleListProps) => {
   return (
     <ul className="article-list">
       {articles.map(item => {
-        return (
-          <li key={item.id}>
-            {item.title}
-            {/* <ArticleListItem
-            article={item}
-          /> */}
-          </li>
-        );
+        return <li key={item.id}>{<ArticleListItem article={item} />}</li>;
       })}
     </ul>
   );
@@ -31,14 +26,15 @@ const ArticleList = ({ articles }: IArticleListProps) => {
 
 interface IArticleListContainerProps {
   articles: Article[];
+  articlesQuery: string;
   loading: boolean;
   error: string;
-  fetchArticles: () => void;
+  fetchArticles: (query: string) => void;
 }
 
 class ArticleListContainer extends Component<IArticleListContainerProps> {
   componentDidMount() {
-    this.props.fetchArticles();
+    this.props.fetchArticles(this.props.articlesQuery);
   }
 
   render() {
@@ -52,14 +48,15 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
       return <div>Error</div>;
     }
 
+    console.log(articles);
     return <ArticleList articles={articles} />;
   }
 }
 
 const mapStateToProps = ({
-  articleList: { articles, loading, error }
+  articleList: { articles, articlesQuery, loading, error }
 }: StoreStructure): any => {
-  return { articles, loading, error };
+  return { articles, articlesQuery, loading, error };
 };
 
 const mapDispatchToProps = (dispatch: any, { articleService }: any) => {
