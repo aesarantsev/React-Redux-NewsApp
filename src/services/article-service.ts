@@ -1,12 +1,11 @@
 import { Article } from "../entities/Article";
 
 export default class ArticleService {
-  apiKey = "8cb1cd4070ba4b7c81ea4dcbaa198897";
-  currentData = "2020-01-08";
-  querty = "bitcoin";
+  apiKey = "337740f995084865b5466d83875c9613";
+  currentDate = "2020-01-09";
 
-  async getResource(query:string) {
-    let apiURL = `https://newsapi.org/v2/everything?q=${query}&from=${this.currentData}&sortBy=publishedAt&apiKey=${this.apiKey}`;
+  async getResource(query: string, pageSize: number = 5, page: number = 1) {
+    let apiURL = `https://newsapi.org/v2/everything?q=${query}&from=${this.currentDate}&sortBy=publishedAt&apiKey=${this.apiKey}&pageSize=${pageSize}&page=${page}`;
     console.log(`fetch ${apiURL}`);
     const res = await fetch(apiURL);
     if (!res.ok) {
@@ -16,8 +15,8 @@ export default class ArticleService {
     return body;
   }
 
-  getArticles = async (query: string) => {
-    const res = await this.getResource(query);
+  getArticles = async (query: string, pageSize: number, page: number) => {
+    const res = await this.getResource(query, pageSize, page);
     return res.articles.map(this._transformArticles);
   };
 

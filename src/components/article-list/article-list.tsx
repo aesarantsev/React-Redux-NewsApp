@@ -1,62 +1,83 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import ArticleListItem from "../article-list-item";
+import InfiniteScroll from "react-infinite-scroller";
 
+import ArticleListItem from "../article-list-item";
 import withBookstoreService from "../hoc";
 import { fetchArticles } from "../../actions";
 import { Article } from "../../entities/Article";
+import { StoreStructure } from "../../entities/StoreStructure";
 
 import "./article-list.css";
-import { articleListType, StoreStructure } from "../../entities/StoreStructure";
 
 interface IArticleListProps {
-  articles: Article[];
+  items: JSX.Element[];
+  loadMoreArticles: (page: number) => void;
 }
 
-const ArticleList = ({ articles }: IArticleListProps) => {
+const ArticleList = ({ items, loadMoreArticles }: IArticleListProps) => {
   return (
-    <ul className="article-list">
-      {articles.map(item => {
-        return <li key={item.id}>{<ArticleListItem article={item} />}</li>;
-      })}
-    </ul>
+    <InfiniteScroll
+      pageStart={0}
+      hasMore={true}
+      useWindow={true}
+      loadMore={loadMoreArticles}
+      loader={<div>Loading data...</div>}
+    >
+      {items}
+    </InfiniteScroll>
   );
 };
 
 interface IArticleListContainerProps {
   articles: Article[];
-  articlesQuery: string;
-  loading: boolean;
+  q: string;
+  pageSize: number;
+  page: number;
   error: string;
-  fetchArticles: (query: string) => void;
+  fetchArticles: (query: string, pageSize: number, page: number) => void;
 }
 
 class ArticleListContainer extends Component<IArticleListContainerProps> {
-  componentDidMount() {
-    this.props.fetchArticles(this.props.articlesQuery);
+  getArticleListItems = (): JSX.Element[] => {
+    let res: JSX.Element[] = [];
+    this.props.articles.map(function(item) {
+      res.push(<ArticleListItem article={item} />);
+    });
+
+    return res;
+  };
+
+  getPageNews() {
+    return (page: number) => {
+      console.log("page", page);
+      this.props.fetchArticles(this.props.q, this.props.pageSize, page);
+    };
   }
 
   render() {
-    const { articles, loading, error } = this.props;
-
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-
-    if (error) {
+    if (this.props.error) {
       return <div>Error</div>;
     }
 
-    console.log(articles);
-    return <ArticleList articles={articles} />;
+    return (
+      <ArticleList
+        items={this.getArticleListItems()}
+        loadMoreArticles={this.getPageNews()}
+      />
+    );
   }
 }
 
 const mapStateToProps = ({
-  articleList: { articles, articlesQuery, loading, error }
+  articleList: {
+    articles,
+    articlesQuertyParams: { q, pageSize, page },
+    error
+  }
 }: StoreStructure): any => {
-  return { articles, articlesQuery, loading, error };
+  return { articles, q, pageSize, page, error };
 };
 
 const mapDispatchToProps = (dispatch: any, { articleService }: any) => {

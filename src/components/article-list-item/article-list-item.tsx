@@ -11,7 +11,7 @@ interface IArticleListItemProps {
 }
 
 const ArticleListItem = ({ article }: IArticleListItemProps) => {
-  console.log("ArticleListItem ", article);
+ 
   return (
     <div className="article-list-item">
       <h1 className="article-list-item__header">{article.title}</h1>

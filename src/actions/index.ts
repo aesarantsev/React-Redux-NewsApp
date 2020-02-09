@@ -5,10 +5,10 @@ import {
   FETCH_ARTICLE_FAILURE
 } from "./actions";
 
-export const articleRequested = (query:string): ArticleActionType => {
+export const articleRequested = (query: string): ArticleActionType => {
   return {
     type: FETCH_ARTICLE_REQUEST,
-    payload:{articlesQuerty:query}
+    payload: { q: query }
   };
 };
 
@@ -29,11 +29,11 @@ export const articleError = (error: any): ArticleActionType => {
 export const fetchArticles = (
   articleService: ArticleService,
   dispatch: any
-) => (query:string) => {
+) => (query: string, pageSize: number, page: number) => {
   dispatch(articleRequested(query));
-  
+
   articleService
-    .getArticles(query)
+    .getArticles(query, pageSize, page)
     .then(data => dispatch(articleLoaded(data)))
     .catch(err => dispatch(articleError(err)));
 };

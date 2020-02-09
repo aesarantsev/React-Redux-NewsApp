@@ -1,5 +1,3 @@
-import { Article } from "../entities/Article";
-import { Reducer } from "redux";
 import { upateArticle } from "./article";
 import { StoreStructure } from "../entities/StoreStructure";
 import {ActionType} from '../entities/Actions'

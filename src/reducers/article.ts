@@ -1,4 +1,3 @@
-import { Article } from "../entities/Article";
 import {
   FETCH_ARTICLE_REQUEST,
   FETCH_ARTICLE_SUCCESS,
@@ -9,7 +8,11 @@ import { ActionType } from "../entities/Actions";
 
 const initialState: articleListType = {
   articles: [],
-  articlesQuery: "bitcoin",
+  articlesQuertyParams: {
+    q: "bitcoin",
+    pageSize: 5,
+    page: 1
+  },
   loading: true,
   error: null
 };
@@ -19,21 +22,26 @@ export const upateArticle = (
   action: ActionType
 ): articleListType => {
   if (state === undefined) return initialState;
+
   switch (action.type) {
     case FETCH_ARTICLE_REQUEST:
       console.log(FETCH_ARTICLE_REQUEST);
       return {
-        articles: [],
-        articlesQuery: action.payload.articlesQuerty,
+        ...state.articleList,
+        articlesQuertyParams: {
+          q: action.payload.q,
+          ...state.articleList.articlesQuertyParams
+        },
         loading: true,
         error: null
       };
 
     case FETCH_ARTICLE_SUCCESS:
       console.log(FETCH_ARTICLE_SUCCESS);
+      console.log(action.payload);
       return {
         ...state.articleList,
-        articles: action.payload,
+        articles: state.articleList.articles.concat(action.payload),
         loading: false,
         error: null
       };
