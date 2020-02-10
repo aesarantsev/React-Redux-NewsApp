@@ -19,11 +19,12 @@ interface IArticleListProps {
 const ArticleList = ({ items, loadMoreArticles }: IArticleListProps) => {
   return (
     <InfiniteScroll
-      pageStart={0}
+      pageStart={1}
       hasMore={true}
       useWindow={true}
       loadMore={loadMoreArticles}
-      loader={<div>Loading data...</div>}
+      loader={<div key={1}>Loading data...</div>}
+
     >
       {items}
     </InfiniteScroll>
@@ -35,15 +36,17 @@ interface IArticleListContainerProps {
   q: string;
   pageSize: number;
   page: number;
+  from: string;
+  to: string;
   error: string;
-  fetchArticles: (query: string, pageSize: number, page: number) => void;
+  fetchArticles: (query: string, pageSize: number, page: number, from:string, to:string) => void;
 }
 
 class ArticleListContainer extends Component<IArticleListContainerProps> {
   getArticleListItems = (): JSX.Element[] => {
     let res: JSX.Element[] = [];
     this.props.articles.map(function(item) {
-      res.push(<ArticleListItem article={item} />);
+      res.push(<ArticleListItem article={item} key={item.publishedAt}/>);
     });
 
     return res;
@@ -52,7 +55,7 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
   getPageNews() {
     return (page: number) => {
       console.log("page", page);
-      this.props.fetchArticles(this.props.q, this.props.pageSize, page);
+      this.props.fetchArticles(this.props.q, this.props.pageSize, page, this.props.from, this.props.to);
     };
   }
 
@@ -73,11 +76,11 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
 const mapStateToProps = ({
   articleList: {
     articles,
-    articlesQuertyParams: { q, pageSize, page },
+    articlesQuertyParams: { q, pageSize, page, from, to },
     error
   }
 }: StoreStructure): any => {
-  return { articles, q, pageSize, page, error };
+  return { articles, q, pageSize, page, from, to, error };
 };
 
 const mapDispatchToProps = (dispatch: any, { articleService }: any) => {

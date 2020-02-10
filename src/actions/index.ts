@@ -1,47 +1,52 @@
 import ArticleService from "../services/article-service";
+
+import { articlesQuertyParamsType } from "../entities/StoreStructure";
 import {
-  FETCH_ARTICLE_REQUEST,
-  FETCH_ARTICLE_SUCCESS,
-  FETCH_ARTICLE_FAILURE
-} from "./actions";
-
-export const articleRequested = (query: string): ArticleActionType => {
-  return {
-    type: FETCH_ARTICLE_REQUEST,
-    payload: { q: query }
-  };
-};
-
-export const articleLoaded = (newArticles: any): ArticleActionType => {
-  return {
-    type: FETCH_ARTICLE_SUCCESS,
-    payload: newArticles
-  };
-};
-
-export const articleError = (error: any): ArticleActionType => {
-  return {
-    type: FETCH_ARTICLE_FAILURE,
-    payload: error
-  };
-};
+  articleRequested,
+  articleLoaded,
+  articleError,
+  setArticlesQuertyParams,
+  fromDateChange,
+  toDateChange,
+  setQuerty
+} from "./action-creators";
 
 export const fetchArticles = (
   articleService: ArticleService,
   dispatch: any
-) => (query: string, pageSize: number, page: number) => {
+) => (
+  query: string,
+  pageSize: number,
+  page: number,
+  from: string,
+  to: string
+) => {
   dispatch(articleRequested(query));
 
   articleService
-    .getArticles(query, pageSize, page)
+    .getArticles(query, pageSize, page, from, to)
     .then(data => dispatch(articleLoaded(data)))
     .catch(err => dispatch(articleError(err)));
 };
 
-interface ActionTypeBase {
-  type: string;
-}
+export const setArticlesQuertyParamsFunc = (dispatch: any) => (
+  params: articlesQuertyParamsType
+) => {
+  console.log("setArticlesQuertyParamsFunc");
+  dispatch(setArticlesQuertyParams(params));
+};
 
-interface ArticleActionType extends ActionTypeBase {
-  payload?: any;
-}
+export const setFromDateToState = (dispatch: any) => (fromDate: string) => {
+  console.log("setFromDateToState");
+  dispatch(fromDateChange(fromDate));
+};
+
+export const setToDateToState = (dispatch: any) => (toDate: string) => {
+  console.log("setToDateToState");
+  dispatch(toDateChange(toDate));
+};
+
+export const setQuertyToState = (dispatch: any) => (q: string) => {
+  console.log("setQuertyToState");
+  dispatch(setQuerty(q));
+};

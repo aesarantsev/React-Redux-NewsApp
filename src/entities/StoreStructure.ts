@@ -6,11 +6,15 @@ export interface StoreStructure {
 
 export interface articleListType {
   articles: Article[];
-  articlesQuertyParams: {
-    q: string;
-    pageSize: number;
-    page: number;
-  };
+  articlesQuertyParams: articlesQuertyParamsType;
   loading: boolean;
   error: string | null;
+}
+
+export interface articlesQuertyParamsType {
+  q: string;
+  pageSize: number;
+  page: number;
+  from: string;
+  to: string;
 }

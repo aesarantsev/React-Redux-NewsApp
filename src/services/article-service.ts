@@ -1,11 +1,17 @@
 import { Article } from "../entities/Article";
 
 export default class ArticleService {
-  apiKey = "337740f995084865b5466d83875c9613";
-  currentDate = "2020-01-09";
+  apiKey = "eb667704ad684eb39fc6f2f85ab206a4";
+  currentDate = "2020-02-01";
 
-  async getResource(query: string, pageSize: number = 5, page: number = 1) {
-    let apiURL = `https://newsapi.org/v2/everything?q=${query}&from=${this.currentDate}&sortBy=publishedAt&apiKey=${this.apiKey}&pageSize=${pageSize}&page=${page}`;
+  async getResource(
+    query: string,
+    pageSize: number = 5,
+    page: number = 1,
+    from: string,
+    to: string
+  ) {
+    let apiURL = `https://newsapi.org/v2/everything?q=${query}&from=${from}&to=${to}&sortBy=publishedAt&apiKey=${this.apiKey}&pageSize=${pageSize}&page=${page}`;
     console.log(`fetch ${apiURL}`);
     const res = await fetch(apiURL);
     if (!res.ok) {
@@ -15,8 +21,14 @@ export default class ArticleService {
     return body;
   }
 
-  getArticles = async (query: string, pageSize: number, page: number) => {
-    const res = await this.getResource(query, pageSize, page);
+  getArticles = async (
+    query: string,
+    pageSize: number,
+    page: number,
+    from: string,
+    to: string
+  ) => {
+    const res = await this.getResource(query, pageSize, page, from, to);
     return res.articles.map(this._transformArticles);
   };
 
