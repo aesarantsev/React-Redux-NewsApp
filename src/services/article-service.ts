@@ -1,7 +1,7 @@
 import { Article } from "../entities/Article";
 
 export default class ArticleService {
-  apiKey = "01c17f69f0294f27bc2630f6c7c1b29e";
+  apiKey = "354d6c6676cf477683e5b3651d76321c";
   currentDate = "2020-02-01";
 
   async getResource(

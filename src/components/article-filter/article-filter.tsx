@@ -17,7 +17,7 @@ interface ArticleFilterType {
   toDateOnChange: (event: string) => void;
 }
 
-export class ArticleFilter extends Component<ArticleFilterType> {
+class ArticleFilter extends Component<ArticleFilterType> {
   render() {
     let { from, to } = this.props;
     let dateFrom = ISOdateToDatepickerFormat(from);

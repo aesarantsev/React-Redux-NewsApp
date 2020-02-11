@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom'
+
 import {
   AppBar,
   CssBaseline,
@@ -19,8 +21,9 @@ import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { navigationList } from "../../data-structures/navigation-list";
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,8 +57,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Menu() {
-  //const { container } = props;
+function Layout(props: any): any {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -69,26 +71,18 @@ function Menu() {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {navigationList.map((item, id) => (
+          <Link to={item.link}>
+          <ListItem button key={item.title} >
+            
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.title} />
+            
           </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
@@ -107,7 +101,7 @@ function Menu() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            News
           </Typography>
         </Toolbar>
       </AppBar>
@@ -144,10 +138,10 @@ function Menu() {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-            test
+        {props.children}
       </main>
     </div>
   );
 }
 
-export default Menu;
+export default Layout;

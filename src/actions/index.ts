@@ -9,7 +9,8 @@ import {
   setArticlesQuertyParams,
   fromDateChange,
   toDateChange,
-  setQuerty
+  setQuerty,
+  pageSizeChange
 } from "./action-creators";
 
 export const fetchArticles = (
@@ -49,6 +50,11 @@ export const setFromDateToState = (dispatch: any) => (fromDate: string) => {
 export const setToDateToState = (dispatch: any) => (toDate: string) => {
   console.log("setToDateToState");
   dispatch(toDateChange(toDate));
+};
+
+export const setPageSizeToState = (dispatch: any) => (pageSize: number) => {
+  console.log("setPageSizeToState", pageSize);
+  dispatch(pageSizeChange(pageSize));
 };
 
 export const setQuertyToState = (dispatch: any) => (q: string) => {

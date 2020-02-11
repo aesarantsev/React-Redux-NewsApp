@@ -1,18 +1,16 @@
 import React from "react";
 
 import Container from "@material-ui/core/Container";
-import ArticleList from "../article-list";
-import ArticleFilter from "../article-filter";
+import SettingsPanel from "../settings-panel";
 
-const HomePage = () => {
+const SettingsPage = () => {
   return (
     <React.Fragment>
       <Container maxWidth="lg">
-        <ArticleFilter />
-        <ArticleList />
+        <SettingsPanel />
       </Container>
     </React.Fragment>
   );
 };
 
-export default HomePage;
+export default SettingsPage;

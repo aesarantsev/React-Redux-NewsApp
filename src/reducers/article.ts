@@ -6,7 +6,8 @@ import {
   SET_ARTICLE_QUERTY_PARAMS,
   QUERTY_INPUT_CHANGE,
   FROM_DATE_CHANGE,
-  TO_DATE_CHANGE
+  TO_DATE_CHANGE,
+  PAGE_SIZE_CHANGE
 } from "../actions/actions";
 import { StoreStructure, articleListType } from "../entities/StoreStructure";
 import { ActionType } from "../entities/Actions";
@@ -47,7 +48,7 @@ export const upateArticle = (
       return {
         ...state.articleList,
         articlesQuertyParams: {
-          page:1,
+          page: 1,
           q: action.payload.q,
           ...state.articleList.articlesQuertyParams
         },
@@ -130,6 +131,18 @@ export const upateArticle = (
           ...state.articleList.articlesQuertyParams,
           page: 1,
           to: DatepickerDateToISOformat(action.payload)
+        }
+      };
+
+    case PAGE_SIZE_CHANGE:
+      console.log(PAGE_SIZE_CHANGE);
+      return {
+        ...state.articleList,
+        articles: [],
+        articlesQuertyParams: {
+          ...state.articleList.articlesQuertyParams,
+          page: 1,
+          pageSize: action.payload
         }
       };
 
