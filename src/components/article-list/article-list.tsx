@@ -33,7 +33,6 @@ const ArticleList = ({
       useWindow={true}
       loadMore={loadMoreArticles}
       loader={<div key={1}>Loading data...</div>}
-      //initialLoad={true}
     >
       {items}
     </InfiniteScroll>
@@ -60,7 +59,6 @@ interface IArticleListContainerProps {
 
 class ArticleListContainer extends Component<IArticleListContainerProps> {
   componentDidMount(){
-    //this.getPageNews()(1);
   }
   getArticleListItems = (): JSX.Element[] => {
     let res: JSX.Element[] = [];

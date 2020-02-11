@@ -1,17 +1,6 @@
 import ArticleService from "../services/article-service";
-
 import { articlesQuertyParamsType } from "../entities/StoreStructure";
-import {
-  articleRequested,
-  articleLoaded,
-  articleLoadedEmptyResult,
-  articleError,
-  setArticlesQuertyParams,
-  fromDateChange,
-  toDateChange,
-  setQuerty,
-  pageSizeChange
-} from "./action-creators";
+import * as actionCreators from "./action-creators";
 
 export const fetchArticles = (
   articleService: ArticleService,
@@ -23,41 +12,49 @@ export const fetchArticles = (
   from: string,
   to: string
 ) => {
-  dispatch(articleRequested(query));
+  dispatch(actionCreators.articleRequested(query));
 
   articleService
     .getArticles(query, pageSize, page, from, to)
     .then(data => {
-      //if (data.articles.length) 
-      dispatch(articleLoaded(data));
-      //else dispatch(articleLoadedEmptyResult());
+      dispatch(actionCreators.articleLoaded(data));
     })
-    .catch(err => dispatch(articleError(err)));
+    .catch(err => dispatch(actionCreators.articleError(err)));
 };
 
 export const setArticlesQuertyParamsFunc = (dispatch: any) => (
   params: articlesQuertyParamsType
 ) => {
   console.log("setArticlesQuertyParamsFunc");
-  dispatch(setArticlesQuertyParams(params));
+  dispatch(actionCreators.setArticlesQuertyParams(params));
 };
 
 export const setFromDateToState = (dispatch: any) => (fromDate: string) => {
   console.log("setFromDateToState");
-  dispatch(fromDateChange(fromDate));
+  dispatch(actionCreators.fromDateChange(fromDate));
 };
 
 export const setToDateToState = (dispatch: any) => (toDate: string) => {
   console.log("setToDateToState");
-  dispatch(toDateChange(toDate));
+  dispatch(actionCreators.toDateChange(toDate));
 };
 
 export const setPageSizeToState = (dispatch: any) => (pageSize: number) => {
   console.log("setPageSizeToState", pageSize);
-  dispatch(pageSizeChange(pageSize));
+  dispatch(actionCreators.pageSizeChange(pageSize));
 };
 
 export const setQuertyToState = (dispatch: any) => (q: string) => {
   console.log("setQuertyToState");
-  dispatch(setQuerty(q));
+  dispatch(actionCreators.setQuerty(q));
+};
+
+export const changeTheme = (dispatch: any) => () => {
+  console.log("changeTheme");
+  dispatch(actionCreators.themeChange());
+};
+
+export const changeFontSize = (dispatch: any) => (fontSize: number) => {
+  console.log("changeFontSize");
+  dispatch(actionCreators.fontSizeChange(fontSize));
 };

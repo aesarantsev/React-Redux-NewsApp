@@ -1,13 +1,18 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+
+import { TextField, Switch, FormControlLabel } from "@material-ui/core";
+
 import { StoreStructure } from "../../entities/StoreStructure";
-import { setPageSizeToState } from "../../actions";
+import { setPageSizeToState, changeTheme, changeFontSize } from "../../actions";
 
 interface SettingsPanelType {
   pageSize: number;
+  darkTheme: boolean;
+  fontSize: number;
   setQuertyToState: (pageSize: number) => void;
+  changeFontSize: (fontSize: number) => void;
+  changeTheme: () => void;
 }
 
 export class SettingsPanel extends Component<SettingsPanelType> {
@@ -21,6 +26,24 @@ export class SettingsPanel extends Component<SettingsPanelType> {
           value={this.props.pageSize.toString()}
           onChange={event => this.props.setQuertyToState(+event.target.value)}
         />
+        <TextField
+          id="font-size-input"
+          label="Font size"
+          variant="outlined"
+          value={this.props.fontSize.toString()}
+          onChange={event => this.props.changeFontSize(+event.target.value)}
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.props.darkTheme}
+              onChange={this.props.changeTheme}
+              value="DarkTheme"
+              color="primary"
+            />
+          }
+          label="Dark theme"
+        />
       </form>
     );
   }
@@ -29,14 +52,17 @@ export class SettingsPanel extends Component<SettingsPanelType> {
 const mapStateToProps = ({
   articleList: {
     articlesQuertyParams: { pageSize }
-  }
+  },
+  uiParams: { darkTheme, fontSize }
 }: StoreStructure): any => {
-  return { pageSize };
+  return { pageSize, darkTheme, fontSize };
 };
 
 const mapDispatchToProps = (dispatch: any, { articleService }: any) => {
   return {
-    setQuertyToState: setPageSizeToState(dispatch)
+    setQuertyToState: setPageSizeToState(dispatch),
+    changeTheme: changeTheme(dispatch),
+    changeFontSize: changeFontSize(dispatch)
   };
 };
 

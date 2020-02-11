@@ -1,39 +1,30 @@
-import {
-  FETCH_ARTICLE_REQUEST,
-  FETCH_ARTICLE_SUCCESS,
-  FETCH_ARTICLE_FAILURE,
-  SET_ARTICLE_QUERTY_PARAMS,
-  QUERTY_INPUT_CHANGE,
-  FROM_DATE_CHANGE,
-  TO_DATE_CHANGE,
-  FETCH_ARTICLE_SUCCESS_EMPTY_RESULT,
-  PAGE_SIZE_CHANGE
-} from "./actions";
+import * as actions from './actions'
 import { articlesQuertyParamsType } from "../entities/StoreStructure";
+import { Article } from '../entities/Article';
 
 export const articleRequested = (query: string): ArticleActionType => {
   return {
-    type: FETCH_ARTICLE_REQUEST,
+    type: actions.FETCH_ARTICLE_REQUEST,
     payload: { q: query }
   };
 };
 
 export const articleLoaded = (newArticles: any): ArticleActionType => {
   return {
-    type: FETCH_ARTICLE_SUCCESS,
+    type: actions.FETCH_ARTICLE_SUCCESS,
     payload: newArticles
   };
 };
 
 export const articleLoadedEmptyResult = (): ArticleActionType => {
   return {
-    type: FETCH_ARTICLE_SUCCESS_EMPTY_RESULT
+    type: actions.FETCH_ARTICLE_SUCCESS_EMPTY_RESULT
   };
 };
 
-export const articleError = (error: any): ArticleActionType => {
+export const articleError = (error: string): ArticleActionType => {
   return {
-    type: FETCH_ARTICLE_FAILURE,
+    type: actions.FETCH_ARTICLE_FAILURE,
     payload: error
   };
 };
@@ -42,36 +33,49 @@ export const setArticlesQuertyParams = (
   params: articlesQuertyParamsType
 ): ArticleActionType => {
   return {
-    type: SET_ARTICLE_QUERTY_PARAMS,
+    type: actions.SET_ARTICLE_QUERTY_PARAMS,
     payload: params
   };
 };
 
 export const setQuerty = (querty: string): ArticleActionType => {
   return {
-    type: QUERTY_INPUT_CHANGE,
+    type: actions.QUERTY_INPUT_CHANGE,
     payload: querty
   };
 };
 
 export const fromDateChange = (fromDate: string): ArticleActionType => {
   return {
-    type: FROM_DATE_CHANGE,
+    type: actions.FROM_DATE_CHANGE,
     payload: fromDate
   };
 };
 
 export const toDateChange = (toDate: string): ArticleActionType => {
   return {
-    type: TO_DATE_CHANGE,
+    type: actions.TO_DATE_CHANGE,
     payload: toDate
   };
 };
 
 export const pageSizeChange = (pageSize: number): ArticleActionType => {
   return {
-    type: PAGE_SIZE_CHANGE,
+    type: actions.PAGE_SIZE_CHANGE,
     payload: pageSize
+  };
+};
+
+export const themeChange = (): ArticleActionType => {
+  return {
+    type: actions.THEME_CHANGE
+  };
+};
+
+export const fontSizeChange = (fontSize: number): ArticleActionType => {
+  return {
+    type: actions.FONT_SIZE_CHANGE,
+    payload: fontSize
   };
 };
 

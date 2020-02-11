@@ -15,6 +15,7 @@ import { Article } from "../../entities/Article";
 import { ISOdateToUIformat } from "../../utils/date-service";
 
 import "./article-list-item.css";
+
 interface IArticleListItemProps {
   article: Article;
 }
