@@ -99,7 +99,7 @@ function Layout(props: LayoutType): any {
       <Divider />
       <List>
         {navigationList.map((item, id) => (
-          <Link to={item.link}>
+          <Link to={item.link} style={{ textDecoration: "none", color: "initial" }}>
             <ListItem button key={item.title}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />

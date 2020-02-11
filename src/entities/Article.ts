@@ -3,7 +3,8 @@ export interface Article {
   title: string;
   description: string;
   urlToImage: string;
-  publishedAt: string; //Поменять на Date
+  publishedAt: string;
+  content: string;
 }
 
 export interface FullArticle {

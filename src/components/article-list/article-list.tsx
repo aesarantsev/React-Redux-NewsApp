@@ -8,6 +8,7 @@ import withBookstoreService from "../hoc";
 import { fetchArticles } from "../../actions";
 import { Article } from "../../entities/Article";
 import { StoreStructure } from "../../entities/StoreStructure";
+import Spinner from "../spinner";
 
 import "./article-list.css";
 
@@ -29,10 +30,10 @@ const ArticleList = ({
   return (
     <InfiniteScroll
       pageStart={1}
-      hasMore={page * pageSize < totalArticles || page===1? true : false}
+      hasMore={page * pageSize < totalArticles || page === 1 ? true : false}
       useWindow={true}
       loadMore={loadMoreArticles}
-      loader={<div key={1}>Loading data...</div>}
+      loader={<Spinner/>}
     >
       {items}
     </InfiniteScroll>
@@ -58,11 +59,10 @@ interface IArticleListContainerProps {
 }
 
 class ArticleListContainer extends Component<IArticleListContainerProps> {
-  componentDidMount(){
-  }
+  componentDidMount() {}
   getArticleListItems = (): JSX.Element[] => {
     let res: JSX.Element[] = [];
-    this.props.articles.map(function(item,id) {
+    this.props.articles.map(function(item, id) {
       res.push(<ArticleListItem article={item} key={id} />);
     });
 

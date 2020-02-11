@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -32,22 +33,27 @@ const ArticleListItem = ({ article }: IArticleListItemProps) => {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={article.urlToImage}
-          component="img"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {article.title}
-          </Typography>
-          <Typography variant="h5" color="textSecondary" component="p">
-            {ISOdateToUIformat(article.publishedAt)}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {article.description}
-          </Typography>
-        </CardContent>
+        <Link
+          to={`/articles/${article.id}`}
+          style={{ textDecoration: "none", color: "initial" }}
+        >
+          <CardMedia
+            className={classes.media}
+            image={article.urlToImage}
+            component="img"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {article.title}
+            </Typography>
+            <Typography variant="h5" color="textSecondary" component="p">
+              {ISOdateToUIformat(article.publishedAt)}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {article.description}
+            </Typography>
+          </CardContent>
+        </Link>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">

@@ -41,10 +41,16 @@ export default class ArticleService {
 
   _transformArticles = (article: any): Article => {
     return {
+      id:
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9),
       title: article.title,
       description: article.description,
       urlToImage: article.urlToImage,
-      publishedAt: article.publishedAt
+      publishedAt: article.publishedAt,
+      content: article.content
     };
   };
 }

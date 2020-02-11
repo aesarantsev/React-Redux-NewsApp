@@ -2,6 +2,7 @@
   "name": "news-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
