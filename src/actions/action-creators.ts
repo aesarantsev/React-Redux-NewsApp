@@ -5,7 +5,8 @@ import {
   SET_ARTICLE_QUERTY_PARAMS,
   QUERTY_INPUT_CHANGE,
   FROM_DATE_CHANGE,
-  TO_DATE_CHANGE
+  TO_DATE_CHANGE,
+  FETCH_ARTICLE_SUCCESS_EMPTY_RESULT
 } from "./actions";
 import { articlesQuertyParamsType } from "../entities/StoreStructure";
 
@@ -20,6 +21,12 @@ export const articleLoaded = (newArticles: any): ArticleActionType => {
   return {
     type: FETCH_ARTICLE_SUCCESS,
     payload: newArticles
+  };
+};
+
+export const articleLoadedEmptyResult = (): ArticleActionType => {
+  return {
+    type: FETCH_ARTICLE_SUCCESS_EMPTY_RESULT
   };
 };
 
@@ -39,27 +46,21 @@ export const setArticlesQuertyParams = (
   };
 };
 
-export const setQuerty = (
-  querty:string
-): ArticleActionType => {
+export const setQuerty = (querty: string): ArticleActionType => {
   return {
     type: QUERTY_INPUT_CHANGE,
     payload: querty
   };
 };
 
-export const fromDateChange = (
-  fromDate:string
-): ArticleActionType => {
+export const fromDateChange = (fromDate: string): ArticleActionType => {
   return {
     type: FROM_DATE_CHANGE,
     payload: fromDate
   };
 };
 
-export const toDateChange = (
-  toDate:string
-): ArticleActionType => {
+export const toDateChange = (toDate: string): ArticleActionType => {
   return {
     type: TO_DATE_CHANGE,
     payload: toDate

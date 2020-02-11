@@ -4,6 +4,7 @@ import { articlesQuertyParamsType } from "../entities/StoreStructure";
 import {
   articleRequested,
   articleLoaded,
+  articleLoadedEmptyResult,
   articleError,
   setArticlesQuertyParams,
   fromDateChange,
@@ -25,7 +26,11 @@ export const fetchArticles = (
 
   articleService
     .getArticles(query, pageSize, page, from, to)
-    .then(data => dispatch(articleLoaded(data)))
+    .then(data => {
+      //if (data.articles.length) 
+      dispatch(articleLoaded(data));
+      //else dispatch(articleLoadedEmptyResult());
+    })
     .catch(err => dispatch(articleError(err)));
 };
 

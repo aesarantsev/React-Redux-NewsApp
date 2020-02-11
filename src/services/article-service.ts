@@ -1,7 +1,7 @@
 import { Article } from "../entities/Article";
 
 export default class ArticleService {
-  apiKey = "eb667704ad684eb39fc6f2f85ab206a4";
+  apiKey = "01c17f69f0294f27bc2630f6c7c1b29e";
   currentDate = "2020-02-01";
 
   async getResource(
@@ -29,7 +29,14 @@ export default class ArticleService {
     to: string
   ) => {
     const res = await this.getResource(query, pageSize, page, from, to);
-    return res.articles.map(this._transformArticles);
+    console.log(
+      "res.articles.map(this._transformArticles)",
+      res.articles.map(this._transformArticles)
+    );
+    return {
+      totalArticles: res.totalResults,
+      articles: res.articles.map(this._transformArticles)
+    };
   };
 
   _transformArticles = (article: any): Article => {

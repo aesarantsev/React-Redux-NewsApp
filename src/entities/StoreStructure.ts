@@ -6,6 +6,7 @@ export interface StoreStructure {
 
 export interface articleListType {
   articles: Article[];
+  totalArticles:number;
   articlesQuertyParams: articlesQuertyParamsType;
   loading: boolean;
   error: string | null;

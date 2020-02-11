@@ -13,18 +13,27 @@ import "./article-list.css";
 
 interface IArticleListProps {
   items: JSX.Element[];
+  totalArticles: number;
+  page: number;
+  pageSize: number;
   loadMoreArticles: (page: number) => void;
 }
 
-const ArticleList = ({ items, loadMoreArticles }: IArticleListProps) => {
+const ArticleList = ({
+  items,
+  loadMoreArticles,
+  totalArticles,
+  page,
+  pageSize
+}: IArticleListProps) => {
   return (
     <InfiniteScroll
       pageStart={1}
-      hasMore={true}
+      hasMore={page * pageSize < totalArticles || page===1? true : false}
       useWindow={true}
       loadMore={loadMoreArticles}
       loader={<div key={1}>Loading data...</div>}
-
+      //initialLoad={true}
     >
       {items}
     </InfiniteScroll>
@@ -33,20 +42,30 @@ const ArticleList = ({ items, loadMoreArticles }: IArticleListProps) => {
 
 interface IArticleListContainerProps {
   articles: Article[];
+  totalArticles: number;
   q: string;
   pageSize: number;
   page: number;
   from: string;
   to: string;
   error: string;
-  fetchArticles: (query: string, pageSize: number, page: number, from:string, to:string) => void;
+  fetchArticles: (
+    query: string,
+    pageSize: number,
+    page: number,
+    from: string,
+    to: string
+  ) => void;
 }
 
 class ArticleListContainer extends Component<IArticleListContainerProps> {
+  componentDidMount(){
+    //this.getPageNews()(1);
+  }
   getArticleListItems = (): JSX.Element[] => {
     let res: JSX.Element[] = [];
-    this.props.articles.map(function(item) {
-      res.push(<ArticleListItem article={item} key={item.publishedAt}/>);
+    this.props.articles.map(function(item,id) {
+      res.push(<ArticleListItem article={item} key={id} />);
     });
 
     return res;
@@ -54,8 +73,14 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
 
   getPageNews() {
     return (page: number) => {
-      console.log("page", page);
-      this.props.fetchArticles(this.props.q, this.props.pageSize, page, this.props.from, this.props.to);
+      console.log("page", this.props.page);
+      this.props.fetchArticles(
+        this.props.q,
+        this.props.pageSize,
+        this.props.page,
+        this.props.from,
+        this.props.to
+      );
     };
   }
 
@@ -68,6 +93,9 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
       <ArticleList
         items={this.getArticleListItems()}
         loadMoreArticles={this.getPageNews()}
+        totalArticles={this.props.totalArticles}
+        page={this.props.page}
+        pageSize={this.props.pageSize}
       />
     );
   }
@@ -76,11 +104,12 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
 const mapStateToProps = ({
   articleList: {
     articles,
+    totalArticles,
     articlesQuertyParams: { q, pageSize, page, from, to },
     error
   }
 }: StoreStructure): any => {
-  return { articles, q, pageSize, page, from, to, error };
+  return { articles, totalArticles, q, pageSize, page, from, to, error };
 };
 
 const mapDispatchToProps = (dispatch: any, { articleService }: any) => {

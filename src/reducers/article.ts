@@ -2,6 +2,7 @@ import {
   FETCH_ARTICLE_REQUEST,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_FAILURE,
+  FETCH_ARTICLE_SUCCESS_EMPTY_RESULT,
   SET_ARTICLE_QUERTY_PARAMS,
   QUERTY_INPUT_CHANGE,
   FROM_DATE_CHANGE,
@@ -21,6 +22,7 @@ let fromDate: string = moment()
 
 const initialState: articleListType = {
   articles: [],
+  totalArticles: 0,
   articlesQuertyParams: {
     q: "bitcoin",
     pageSize: 5,
@@ -45,6 +47,7 @@ export const upateArticle = (
       return {
         ...state.articleList,
         articlesQuertyParams: {
+          page:1,
           q: action.payload.q,
           ...state.articleList.articlesQuertyParams
         },
@@ -57,7 +60,21 @@ export const upateArticle = (
       console.log(action.payload);
       return {
         ...state.articleList,
-        articles: state.articleList.articles.concat(action.payload),
+        articlesQuertyParams: {
+          ...state.articleList.articlesQuertyParams,
+          page: state.articleList.articlesQuertyParams.page + 1
+        },
+        articles: state.articleList.articles.concat(action.payload.articles),
+        totalArticles: action.payload.totalArticles,
+        loading: false,
+        error: null
+      };
+
+    case FETCH_ARTICLE_SUCCESS_EMPTY_RESULT:
+      console.log(FETCH_ARTICLE_SUCCESS_EMPTY_RESULT);
+      return {
+        ...state.articleList,
+        articles: [],
         loading: false,
         error: null
       };
@@ -99,22 +116,22 @@ export const upateArticle = (
         articles: [],
         articlesQuertyParams: {
           ...state.articleList.articlesQuertyParams,
-          page:1,
+          page: 1,
           from: DatepickerDateToISOformat(action.payload)
         }
       };
 
-      case TO_DATE_CHANGE:
-        console.log(TO_DATE_CHANGE);
-        return {
-          ...state.articleList,
-          articles: [],
-          articlesQuertyParams: {
-            ...state.articleList.articlesQuertyParams,
-            page:1,
-            to: DatepickerDateToISOformat(action.payload)
-          }
-        };
+    case TO_DATE_CHANGE:
+      console.log(TO_DATE_CHANGE);
+      return {
+        ...state.articleList,
+        articles: [],
+        articlesQuertyParams: {
+          ...state.articleList.articlesQuertyParams,
+          page: 1,
+          to: DatepickerDateToISOformat(action.payload)
+        }
+      };
 
     default:
       return state.articleList;
