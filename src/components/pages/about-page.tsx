@@ -1,8 +1,9 @@
 import React from "react";
 
+import Map from "../map";
 
 const AboutPage = () => {
-  return <div>AboutPage</div>;
+  return <Map />;
 };
 
 export default AboutPage;
