@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import Layout from "../pages/layout";
 import { HomePage, AboutPage, SettingsPage, HelpPage } from "../pages";
 
-import "./app.css";
 import ArticleFull from "../article-full";
 
 const App = () => {

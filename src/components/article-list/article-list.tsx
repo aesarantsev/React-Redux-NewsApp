@@ -10,7 +10,6 @@ import { Article } from "../../entities/Article";
 import { StoreStructure } from "../../entities/StoreStructure";
 import Spinner from "../spinner";
 
-import "./article-list.css";
 
 interface IArticleListProps {
   items: JSX.Element[];
@@ -33,7 +32,8 @@ const ArticleList = ({
       hasMore={page * pageSize < totalArticles || page === 1 ? true : false}
       useWindow={true}
       loadMore={loadMoreArticles}
-      loader={<Spinner/>}
+      loader={<Spinner key={page} />}
+      key={page}
     >
       {items}
     </InfiniteScroll>
@@ -62,8 +62,8 @@ class ArticleListContainer extends Component<IArticleListContainerProps> {
   componentDidMount() {}
   getArticleListItems = (): JSX.Element[] => {
     let res: JSX.Element[] = [];
-    this.props.articles.map(function(item, id) {
-      res.push(<ArticleListItem article={item} key={id} />);
+    this.props.articles.map((item, id) => {
+      return res.push(<ArticleListItem article={item} key={item.id} />);
     });
 
     return res;

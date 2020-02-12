@@ -1,26 +1,26 @@
-import {
-  FETCH_ARTICLE_REQUEST,
-  FETCH_ARTICLE_SUCCESS,
-  FETCH_ARTICLE_FAILURE,
-  FETCH_ARTICLE_SUCCESS_EMPTY_RESULT,
-  SET_ARTICLE_QUERTY_PARAMS,
-  QUERTY_INPUT_CHANGE,
-  FROM_DATE_CHANGE,
-  TO_DATE_CHANGE,
-  PAGE_SIZE_CHANGE
-} from "../actions/actions";
+// import {
+//   FETCH_ARTICLE_REQUEST,
+//   FETCH_ARTICLE_SUCCESS,
+//   FETCH_ARTICLE_FAILURE,
+//   FETCH_ARTICLE_SUCCESS_EMPTY_RESULT,
+//   SET_ARTICLE_QUERTY_PARAMS,
+//   QUERTY_INPUT_CHANGE,
+//   FROM_DATE_CHANGE,
+//   TO_DATE_CHANGE,
+//   PAGE_SIZE_CHANGE
+// } from "../actions/actions";
+import * as actions from "../actions/actions";
 import { StoreStructure, articleListType } from "../entities/StoreStructure";
 import { ActionType } from "../entities/Actions";
 import moment from "moment";
 import { DatepickerDateToISOformat } from "../utils/date-service";
 
-// var moment = require("moment");
-
-let toDate: string = moment().toISOString();
 let fromDate: string = moment()
   .day(0)
   .toISOString();
+let toDate: string = moment().toISOString();
 
+console.log("fromDate", fromDate);
 const initialState: articleListType = {
   articles: [],
   totalArticles: 0,
@@ -43,8 +43,8 @@ export const upateArticle = (
   if (state === undefined) return initialState;
 
   switch (action.type) {
-    case FETCH_ARTICLE_REQUEST:
-      console.log(FETCH_ARTICLE_REQUEST);
+    case actions.FETCH_ARTICLE_REQUEST:
+      console.log(actions.FETCH_ARTICLE_REQUEST);
       return {
         ...state.articleList,
         articlesQuertyParams: {
@@ -56,8 +56,8 @@ export const upateArticle = (
         error: null
       };
 
-    case FETCH_ARTICLE_SUCCESS:
-      console.log(FETCH_ARTICLE_SUCCESS);
+    case actions.FETCH_ARTICLE_SUCCESS:
+      console.log(actions.FETCH_ARTICLE_SUCCESS);
       console.log(action.payload);
       return {
         ...state.articleList,
@@ -71,8 +71,8 @@ export const upateArticle = (
         error: null
       };
 
-    case FETCH_ARTICLE_SUCCESS_EMPTY_RESULT:
-      console.log(FETCH_ARTICLE_SUCCESS_EMPTY_RESULT);
+    case actions.FETCH_ARTICLE_SUCCESS_EMPTY_RESULT:
+      console.log(actions.FETCH_ARTICLE_SUCCESS_EMPTY_RESULT);
       return {
         ...state.articleList,
         articles: [],
@@ -80,8 +80,8 @@ export const upateArticle = (
         error: null
       };
 
-    case FETCH_ARTICLE_FAILURE:
-      console.log(FETCH_ARTICLE_FAILURE);
+    case actions.FETCH_ARTICLE_FAILURE:
+      console.log(actions.FETCH_ARTICLE_FAILURE);
       return {
         ...state.articleList,
         articles: [],
@@ -89,8 +89,8 @@ export const upateArticle = (
         error: action.payload
       };
 
-    case SET_ARTICLE_QUERTY_PARAMS:
-      console.log(SET_ARTICLE_QUERTY_PARAMS);
+    case actions.SET_ARTICLE_QUERTY_PARAMS:
+      console.log(actions.SET_ARTICLE_QUERTY_PARAMS);
       return {
         ...state.articleList,
         articles: [],
@@ -99,8 +99,8 @@ export const upateArticle = (
         }
       };
 
-    case QUERTY_INPUT_CHANGE:
-      console.log(QUERTY_INPUT_CHANGE);
+    case actions.QUERTY_INPUT_CHANGE:
+      console.log(actions.QUERTY_INPUT_CHANGE);
       return {
         ...state.articleList,
         articles: [],
@@ -110,8 +110,8 @@ export const upateArticle = (
         }
       };
 
-    case FROM_DATE_CHANGE:
-      console.log(FROM_DATE_CHANGE);
+    case actions.FROM_DATE_CHANGE:
+      console.log(actions.FROM_DATE_CHANGE);
       return {
         ...state.articleList,
         articles: [],
@@ -122,8 +122,8 @@ export const upateArticle = (
         }
       };
 
-    case TO_DATE_CHANGE:
-      console.log(TO_DATE_CHANGE);
+    case actions.TO_DATE_CHANGE:
+      console.log(actions.TO_DATE_CHANGE);
       return {
         ...state.articleList,
         articles: [],
@@ -134,8 +134,8 @@ export const upateArticle = (
         }
       };
 
-    case PAGE_SIZE_CHANGE:
-      console.log(PAGE_SIZE_CHANGE);
+    case actions.PAGE_SIZE_CHANGE:
+      console.log(actions.PAGE_SIZE_CHANGE);
       return {
         ...state.articleList,
         articles: [],

@@ -26,7 +26,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import amber from "@material-ui/core/colors/amber";
 
 import { StoreStructure } from "../../entities/StoreStructure";
-import { changeTheme } from "../../actions";
 import { navigationList } from "../../data-structures/navigation-list";
 
 const drawerWidth = 320;
@@ -99,7 +98,11 @@ function Layout(props: LayoutType): any {
       <Divider />
       <List>
         {navigationList.map((item, id) => (
-          <Link to={item.link} style={{ textDecoration: "none", color: "initial" }}>
+          <Link
+            to={item.link}
+            key={id}
+            style={{ textDecoration: "none", color: "initial" }}
+          >
             <ListItem button key={item.title}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />
@@ -176,9 +179,7 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = (dispatch: any, { articleService }: any) => {
-  return {
-    changeTheme: changeTheme(dispatch)
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

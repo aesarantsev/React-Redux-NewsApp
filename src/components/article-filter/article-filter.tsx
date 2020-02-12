@@ -8,8 +8,6 @@ import { setFromDateToState, setToDateToState } from "../../actions";
 import { StoreStructure } from "../../entities/StoreStructure";
 import { ISOdateToDatepickerFormat } from "../../utils/date-service";
 
-import "./article-filter.css";
-
 interface ArticleFilterType {
   from: string;
   fromDateOnChange: (event: string) => void;
@@ -55,7 +53,6 @@ interface IArticleFilterContainerProps {
   setFromDateToState: (FromDate: string) => void;
   to: string;
   setToDateToState: (toDate: string) => void;
-
 }
 
 export class ArticleFilterContainer extends Component<

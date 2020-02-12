@@ -15,7 +15,7 @@ export default class ArticleService {
     console.log(`fetch ${apiURL}`);
     const res = await fetch(apiURL);
     if (!res.ok) {
-      throw new Error(`Could not ferch ${apiURL}` + `, received ${res.status}`);
+      throw new Error(`Could not ferch ${apiURL}, received ${res.status}`);
     }
     const body = await res.json();
     return body;

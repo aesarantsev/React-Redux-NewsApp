@@ -9,11 +9,6 @@ import store from "./store";
 import ArticleService from "./services/article-service";
 import { ArticleServiceProvider } from "./services/article-service-context";
 
-import "./index.css";
-
-
-
-
 const articleService = new ArticleService();
 
 ReactDOM.render(

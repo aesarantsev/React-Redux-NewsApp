@@ -1,6 +1,5 @@
 import * as actions from './actions'
 import { articlesQuertyParamsType } from "../entities/StoreStructure";
-import { Article } from '../entities/Article';
 
 export const articleRequested = (query: string): ArticleActionType => {
   return {

@@ -2,11 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import {
-  Button,
   Card,
   CardActionArea,
   CardMedia,
-  CardActions,
   CardContent,
   Typography,
   makeStyles
@@ -14,8 +12,6 @@ import {
 
 import { Article } from "../../entities/Article";
 import { ISOdateToUIformat } from "../../utils/date-service";
-
-import "./article-list-item.css";
 
 interface IArticleListItemProps {
   article: Article;
@@ -55,11 +51,6 @@ const ArticleListItem = ({ article }: IArticleListItemProps) => {
           </CardContent>
         </Link>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   );
 };

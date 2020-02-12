@@ -1,20 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import "./article-full.css";
+
 import { StoreStructure } from "../../entities/StoreStructure";
 import { Article } from "../../entities/Article";
 import {
-  Button,
   Card,
-  CardActionArea,
   CardMedia,
-  CardActions,
   CardContent,
   Typography,
   makeStyles
 } from "@material-ui/core";
-import { ISOdateToUIformat } from "../../utils/date-service";
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 845,
@@ -44,8 +41,11 @@ const ArticleFull = ({ articles }: ArticleFullType) => {
         <Typography gutterBottom variant="h5" component="h2">
           {article?.title}
         </Typography>
-        <Typography variant="h5" color="textSecondary" component="p">
-        </Typography>
+        <Typography
+          variant="h5"
+          color="textSecondary"
+          component="p"
+        ></Typography>
         <Typography variant="body1" color="textSecondary" component="p">
           {article?.content}
         </Typography>
