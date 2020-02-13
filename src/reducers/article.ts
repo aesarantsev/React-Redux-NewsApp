@@ -48,9 +48,8 @@ export const upateArticle = (
       return {
         ...state.articleList,
         articlesQuertyParams: {
-          page: 1,
-          q: action.payload.q,
-          ...state.articleList.articlesQuertyParams
+          ...state.articleList.articlesQuertyParams,
+          q: action.payload.q
         },
         loading: true,
         error: null
@@ -112,6 +111,7 @@ export const upateArticle = (
 
     case actions.FROM_DATE_CHANGE:
       console.log(actions.FROM_DATE_CHANGE);
+      console.log(action.payload);
       return {
         ...state.articleList,
         articles: [],
