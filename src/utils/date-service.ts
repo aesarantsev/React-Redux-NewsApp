@@ -12,5 +12,6 @@ export const ISOdateToUIformat = (date: string) => {
 
 export const DatepickerDateToISOformat = (date: string) => {
   let datepickerFormat: string = "YYYY-MM-DD";
-  return moment(date, datepickerFormat).format("YYYY-MM-DDTHH:mm:ss");
+  return moment(date, datepickerFormat).subtract(1, "days").format("YYYY-MM-DDTHH:mm:ss");
 };
+
