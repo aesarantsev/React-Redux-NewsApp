@@ -30,7 +30,7 @@ const ArticleListItem = ({ article }: IArticleListItemProps) => {
     <Card className={classes.root}>
       <CardActionArea>
         <Link
-          to={`/articles/${article.id}`}
+          to={process.env.PUBLIC_URL + `/articles/${article.id}`}
           style={{ textDecoration: "none", color: "initial" }}
         >
           <CardMedia
