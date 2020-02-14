@@ -10,11 +10,26 @@ const App = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/" component={HomePage} exact />
-        <Route path="/articles/:id" component={ArticleFull}/>
-        <Route path="/settings" component={SettingsPage} exact />
-        <Route path="/help" component={HelpPage} exact />
-        <Route path="/about" component={AboutPage} exact />
+        <Route path={process.env.PUBLIC_URL + "/"} component={HomePage} exact />
+        <Route
+          path={process.env.PUBLIC_URL + "/articles/:id"}
+          component={ArticleFull}
+        />
+        <Route
+          path={process.env.PUBLIC_URL + "/settings"}
+          component={SettingsPage}
+          exact
+        />
+        <Route
+          path={process.env.PUBLIC_URL + "/help"}
+          component={HelpPage}
+          exact
+        />
+        <Route
+          path={process.env.PUBLIC_URL + "/about"}
+          component={AboutPage}
+          exact
+        />
       </Switch>
     </Layout>
   );

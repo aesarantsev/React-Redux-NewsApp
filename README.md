@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# News App
+
+### GitHub Pages:
+Open [Link](https://aesarantsev.github.io/React-Redux-NewsApp/) to view it in you browser.
 
 ## Available Scripts
 
